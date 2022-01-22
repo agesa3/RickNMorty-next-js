@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
 const defaultEndpoint = "https://rickandmortyapi.com/api/character";
 
@@ -59,12 +61,12 @@ export default function Home({ data }) {
   function handleOnSubmitSearch(e) {
     e.preventDefault();
 
-  const { currentTarget = {} } = e;
-  const fields = Array.from(currentTarget?.elements);
-  const fieldQuery = fields.find(field => field.name === 'query');
+    const { currentTarget = {} } = e;
+    const fields = Array.from(currentTarget?.elements);
+    const fieldQuery = fields.find((field) => field.name === "query");
 
-  const value = fieldQuery.value || '';
-  const endpoint = `https://rickandmortyapi.com/api/character/?name=${value}`;
+    const value = fieldQuery.value || "";
+    const endpoint = `https://rickandmortyapi.com/api/character/?name=${value}`;
 
     updatePage({
       current: endpoint,
@@ -80,8 +82,23 @@ export default function Home({ data }) {
       </Head>
 
       <main className={styles.main}>
+        <motion.div initial="hidden" animate="visible" variants={{
+            hidden: {
+              opacity: 0,
+              scale: 0.8,
+          },
+          visible: {
+            opacity: 1,
+            scale: 1,
+            transition: {
+              delay: 0.4,
+            },
+          },
+        }}>
+        
         <h1 className={styles.title}>Rick and Morty Charcater List</h1>
-
+        </motion.div>
+    
         <p className={styles.description}>Characters</p>
         <form className={styles.search} onSubmit={handleOnSubmitSearch}>
           <input name="query" type="search" />
@@ -92,11 +109,13 @@ export default function Home({ data }) {
           {results.map((result) => {
             const { id, name, image } = result;
             return (
-              <li key={id} className="card ">
-                <a>
-                  <img src={image} alt={`image`} />
-                  <h3>{name}</h3>
-                </a>
+              <li key={id} className="card">
+                <Link href="/characters/[id]" as={`/characters/${id}`}>
+                  <a>
+                    <img src={image} alt={`image`} />
+                    <h3>{name}</h3>
+                  </a>
+                </Link>
               </li>
             );
           })}

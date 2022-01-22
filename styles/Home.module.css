@@ -133,3 +133,30 @@
     flex-direction: column;
   }
 }
+
+.profile {
+  display: flex;
+  margin-top: 2em;
+}
+
+@media (max-width: 600px) {
+  .profile {
+    flex-direction: column;
+  }
+}
+
+.profile_image {
+  margin-right: 2em;
+}
+
+@media (max-width: 600px) {
+  .profile_image {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.back a {
+  color: blue;
+  text-decoration: underline;
+}
