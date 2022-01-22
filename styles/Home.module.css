@@ -71,6 +71,25 @@
   justify-content: center;
   flex-wrap: wrap;
   max-width: 800px;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.search input {
+  margin-right: 0.5em;
+}
+
+@media screen and (max-width: 600px) {
+  .search input {
+    margin-right: 0;
+    margin-bottom: 0.5em;
+  }
+
+  .search input,
+  .search button {
+    width: 100%;
+  }
 }
 
 .card {
